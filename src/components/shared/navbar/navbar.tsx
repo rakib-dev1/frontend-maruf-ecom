@@ -45,7 +45,7 @@ const Navbar = () => {
   console.log(navItems);
 
   return (
-    <div className="bg-[#ed6212] py-3 sticky top-0 z-50">
+    <div className="bg-[#EF6322] py-3 sticky top-0 z-50">
       <nav className="flex items-center justify-between  px-8">
         {/* Left Side: Logo or Menu */}
         <div className="flex items-center ">
@@ -110,14 +110,14 @@ const Navbar = () => {
         <GlobalSearchBar />
 
         {/* Right Side: Cart Button and Login/Signup */}
-        <Button variant="outline" className="hidden md:block mr-2">
+        <Button variant="outline" className="hidden md:block ">
           Login/Signup
         </Button>
         <div className="flex items-center space-x-2">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="p-2">
-                <ShoppingCart className="w-6 h-6" />
+              <Button variant="ghost" className="p-2 text-white">
+                <ShoppingCart className="w-8 h-8" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
@@ -133,10 +133,10 @@ const Navbar = () => {
             </SheetContent>
           </Sheet>
         </div>
-        {/* Secondary Navigation Bar */}
       </nav>
+      {/* Secondary Navigation Bar */}
 
-      <div className="hidden py-5 md:flex justify-center space-x-4 mt-2 bg-[#00A600]">
+      <div className="hidden py-5 md:flex justify-center space-x-4 mt-2 ">
         {navItems.map((item) => (
           <div key={item.label} className="relative group">
             <button
