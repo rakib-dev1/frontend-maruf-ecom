@@ -45,7 +45,7 @@ const Navbar = () => {
   console.log(navItems);
 
   return (
-    <div className=" py-3 sticky top-0 z-50">
+    <div className="bg-[#ed6212] py-3 sticky top-0 z-50">
       <nav className="flex items-center justify-between  px-8">
         {/* Left Side: Logo or Menu */}
         <div className="flex items-center ">
