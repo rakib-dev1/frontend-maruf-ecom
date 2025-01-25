@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
+import Swiper from "@/components/client-components/swiper/swiper";
 
 const Home = () => {
   return (
     <div>
-      <Button>Click me</Button>
+      <Swiper />
     </div>
   );
 };

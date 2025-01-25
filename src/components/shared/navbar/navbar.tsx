@@ -17,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Url } from "url";
+
 const Navbar = () => {
   const axiosPublic = AxiosPublic();
   interface NavItem {
@@ -45,12 +46,12 @@ const Navbar = () => {
   console.log(navItems);
 
   return (
-    <div className="bg-[#EF6322] py-3 sticky top-0 z-50">
+    <div className="bg-[#EF6322] h-[80px] md:h-[150px] py-3 sticky top-0 z-50">
       <nav className="flex items-center justify-between  px-4">
         {/* Left Side: Logo or Menu */}
         <div className="flex items-center ">
           <div className="hidden md:block text-lg font-bold">
-            <Image width={120} height={100} src={logo} alt="FMLIO" />
+            <Image priority width={120} height={100} src={logo} alt="FMLIO" />
           </div>
           <Sheet>
             <SheetTrigger asChild>
@@ -85,7 +86,7 @@ const Navbar = () => {
 
                     {/* Subcategories (Toggle Visibility) */}
                     <ul
-                      className={`ml-4 overflow-hidden  transition-max-height duration-300 ease-in-out ${
+                      className={`ml-4 overflow-hidden   transition-max-height duration-300 ease-in-out ${
                         expandedCategory === item.label
                           ? "max-h-screen"
                           : "max-h-0"
@@ -154,7 +155,7 @@ const Navbar = () => {
 
             {/* Subcategories (Toggle Visibility) */}
             <ul
-              className={`absolute left-0 top-full  mt-9 w-52 text-black shadow-lg rounded-md overflow-hidden transition-max-height duration-300 ease-in-out ${
+              className={`absolute left-0 top-full  mt-7 w-52 bg-white text-black shadow-lg rounded-md overflow-hidden transition-max-height duration-300 ease-in-out ${
                 expandedCategory === item.label ? "max-h-screen" : "max-h-0"
               }`}
             >
