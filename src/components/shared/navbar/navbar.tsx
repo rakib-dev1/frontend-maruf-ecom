@@ -1,5 +1,5 @@
 "use client";
-import logo from "@/assets/logo/logo.webp";
+import logo from "@/assets/logo/logo.png";
 import GlobalSearchBar from "@/components/client-components/global-search-bar/global-search-bar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -46,7 +46,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-[#EF6322] py-3 sticky top-0 z-50">
-      <nav className="flex items-center justify-between  px-8">
+      <nav className="flex items-center justify-between  px-4">
         {/* Left Side: Logo or Menu */}
         <div className="flex items-center ">
           <div className="hidden md:block text-lg font-bold">
@@ -54,7 +54,7 @@ const Navbar = () => {
           </div>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden p-2">
+              <Button variant="ghost" className="md:hidden  text-white p-2">
                 <Menu className="w-6 h-6" />
               </Button>
             </SheetTrigger>
@@ -110,10 +110,11 @@ const Navbar = () => {
         <GlobalSearchBar />
 
         {/* Right Side: Cart Button and Login/Signup */}
-        <Button variant="outline" className="hidden md:block ">
-          Login/Signup
-        </Button>
+
         <div className="flex items-center space-x-2">
+          <Button variant="outline" className="hidden md:block ">
+            Login/Signup
+          </Button>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" className="p-2 text-white">
@@ -153,14 +154,14 @@ const Navbar = () => {
 
             {/* Subcategories (Toggle Visibility) */}
             <ul
-              className={`absolute left-0 top-full mt-5 text-black shadow-lg rounded-md overflow-hidden transition-max-height duration-300 ease-in-out ${
+              className={`absolute left-0 top-full  mt-9 w-52 text-black shadow-lg rounded-md overflow-hidden transition-max-height duration-300 ease-in-out ${
                 expandedCategory === item.label ? "max-h-screen" : "max-h-0"
               }`}
             >
               {item.subcategories.map((subcategory) => (
                 <li
                   key={subcategory.label}
-                  className="text-left my-2 px-4 py-2 hover:bg-gray-100"
+                  className="text-left my-2  px-4 py-2 hover:bg-gray-100"
                 >
                   <Link href={subcategory.href}>{subcategory.label}</Link>
                 </li>
