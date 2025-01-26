@@ -43,7 +43,7 @@ const Navbar = () => {
     };
     fetchNavItems();
   }, [axiosPublic]);
-  console.log(navItems);
+
 
   return (
     <div className="bg-[#EF6322] h-[80px] md:h-[150px] py-3 sticky top-0 z-50">
