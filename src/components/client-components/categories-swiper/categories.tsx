@@ -46,11 +46,12 @@ const Categories = () => {
             className="keen-slider__slide  flex flex-col items-center rounded-full p-2  group transition-transform duration-300 hover:scale-105 hover:text-[#EF6322] mouse-pointer"
           >
             <Image
-              className="rounded-full group-hover:scale-110 transition-transform duration-300"
+              className="rounded-full py-2 group-hover:scale-110 transition-transform duration-300"
               src={category.icon}
               alt={category.label}
               width={100}
               height={100}
+              priority
             />
             <p>{category.label}</p>
           </Link>
