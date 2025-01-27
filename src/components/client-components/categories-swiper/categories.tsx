@@ -10,6 +10,7 @@ import Link from "next/link";
 interface Category {
   icon: string;
   label: string;
+  href: string;
 }
 const Categories = () => {
   const axiosPublic = AxiosPublic();
@@ -22,8 +23,6 @@ const Categories = () => {
       spacing: 15,
     },
   });
-
-  console.log(categories);
 
   React.useEffect(() => {
     const fetchCategories = async () => {
@@ -41,7 +40,7 @@ const Categories = () => {
       <div ref={ref} className="keen-slider">
         {categories.map((category, index) => (
           <Link
-            href={""}
+            href={category.href}
             key={index}
             className="keen-slider__slide  flex flex-col items-center rounded-full p-2  group transition-transform duration-300 hover:scale-105 hover:text-[#EF6322] mouse-pointer"
           >

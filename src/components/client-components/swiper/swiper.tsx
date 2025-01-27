@@ -24,10 +24,10 @@ const Swiper = () => {
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
           <div className="keen-slider__slide number-slide1">
-            <Image priority src={slider1} alt="slider1" />
+            <Image priority src={slider2} alt="slider1" />
           </div>
           <div className="keen-slider__slide number-slide1">
-            <Image priority src={slider2} alt="slider1" />
+            <Image priority src={slider1} alt="slider1" />
           </div>
         </div>
         {loaded && instanceRef.current && (
