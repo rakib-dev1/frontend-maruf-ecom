@@ -1,13 +1,32 @@
 "use client";
-import ProductCard from "@/components/shared/product-card/product-card";
 import GetFeaturedProducts from "@/lib/get_featured_products";
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { Button } from "../../ui/button";
 import { Separator } from "../../ui/separator";
-
+import ProductCard from "@/components/shared/product-card/product-card";
 const FeaturedProducts = () => {
-  const [featuredProducts, setFeaturedProducts] = React.useState([]);
+  interface Product {
+    _id: string;
+    id: number;
+    name: string;
+    title: string;
+    map: string;
+    price: number;
+    image: string;
+  }
+
+  const [featuredProducts, setFeaturedProducts] = React.useState<Product[]>([]);
+  const [ref] = useKeenSlider<HTMLDivElement>({
+    loop: true,
+    mode: "free",
+    slides: {
+      perView: 5,
+      spacing: 15,
+    },
+  });
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
@@ -29,9 +48,11 @@ const FeaturedProducts = () => {
         </Link>
       </div>
       <Separator />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5  justify-items-center">
-        {featuredProducts.map((product, index) => (
-          <ProductCard key={index} product={product} />
+      <div ref={ref} className="keen-slider">
+        {featuredProducts.map((p) => (
+          <div key={p._id} className="keen-slider__slide">
+            <ProductCard product={p} />
+          </div>
         ))}
       </div>
     </div>

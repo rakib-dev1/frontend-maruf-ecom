@@ -13,18 +13,20 @@ interface Product {
 }
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  const { title, image, price } = product;
   console.log(product);
+  const { title, image, price } = product;
+
   return (
-    <div className="group relative w-[200px]  h-[278px] bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 mt-5">
+    <div className="group relative w-[250px]  h-[278px] bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 mt-5">
       {/* Image Container */}
-      <div className="relative h-[170px] overflow-hidden">
+      <div className="relative h-[170px]  overflow-hidden">
         <Image
-          src={image || "/placeholder.svg"}
+          src={image}
           alt={title}
-          width={200}
-          height={170}
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          width="0"
+          height="0"
+          sizes="100vw"
+          className="object-cover w-full h-auto mx-auto transition-transform duration-700 group-hover:scale-110"
         />
 
         {/* Featured Badge */}
@@ -67,14 +69,14 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         {/* Rating */}
         <div className="mt-1.5 flex items-center gap-1">
           <div className="flex items-center">
-            <Star />
+            <Star className="w-4" />
           </div>
           <span className="text-xs text-gray-500">({3})</span>
         </div>
 
         {/* Price */}
         <div className="mt-2 text-base font-bold text-gray-900">
-          ${price.toFixed(2)}
+          ${price?.toFixed(2)}
         </div>
       </div>
     </div>

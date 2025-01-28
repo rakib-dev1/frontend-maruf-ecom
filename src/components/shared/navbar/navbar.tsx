@@ -44,14 +44,14 @@ const Navbar = () => {
     fetchNavItems();
   }, [axiosPublic]);
 
-
   return (
-    <div className="bg-[#EF6322] h-[80px] md:h-[150px] py-3 sticky top-0 z-50">
+    <div className="bg-[#EF6322] h-[80px] md:h-[150px] py-3 px-1 sticky top-0 z-50">
       <nav className="flex items-center justify-between  px-4">
         {/* Left Side: Logo or Menu */}
         <div className="flex items-center ">
           <div className="hidden md:block text-lg font-bold">
-            <Image priority width={120} height={100} src={logo} alt="FMLIO" />
+            {/* <Image priority width={120} height={100} src={logo} alt="FMLIO" /> */}
+            <h1 className="text-4xl text-white ">FMLO</h1>
           </div>
           <Sheet>
             <SheetTrigger asChild>

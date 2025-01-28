@@ -42,17 +42,17 @@ const Categories = () => {
           <Link
             href={category.href}
             key={index}
-            className="keen-slider__slide  flex flex-col items-center rounded-full p-2  group transition-transform duration-300 hover:scale-105 hover:text-[#EF6322] mouse-pointer"
+            className="keen-slider__slide  flex flex-col items-center p-2   group transition-transform duration-300 hover:scale-105 hover:text-[#EF6322] mouse-pointer"
           >
             <Image
-              className="rounded-full py-2 group-hover:scale-110 transition-transform duration-300"
+              className=" border-red-600 border   rounded-full p-1 group-hover:scale-110 transition-transform duration-300"
               src={category.icon}
               alt={category.label}
               width={100}
               height={100}
               priority
             />
-            <p>{category.label}</p>
+            <p className="mt-2">{category.label}</p>
           </Link>
         ))}
       </div>
