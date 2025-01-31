@@ -1,13 +1,16 @@
 "use client";
 import AxiosPublic from "@/services/axios-public";
-
-import "keen-slider/keen-slider.min.css";
-import { useKeenSlider } from "keen-slider/react";
 import Image from "next/image";
-import React from "react";
-import "./styles.css";
 import Link from "next/link";
+import React from "react";
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "./styles.css";
 interface Category {
+  _id: number;
   icon: string;
   label: string;
   href: string;
@@ -15,15 +18,7 @@ interface Category {
 const Categories = () => {
   const axiosPublic = AxiosPublic();
   const [categories, setCategories] = React.useState<Category[]>([]);
-  const [ref] = useKeenSlider<HTMLDivElement>({
-    loop: false,
-    mode: "free-snap",
-    slides: {
-      perView: "auto",
-      spacing: 15,
-    },
-  });
-
+  const [slidesPerView, setSlidesPerView] = React.useState(5);
   React.useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -34,29 +29,52 @@ const Categories = () => {
       }
     };
     fetchCategories();
+    const updateSlidesPerView = () => {
+      if (window.innerWidth < 640) {
+        setSlidesPerView(3);
+      } else if (window.innerWidth < 1024) {
+        setSlidesPerView(4);
+      } else {
+        setSlidesPerView(10);
+      }
+    };
+
+    updateSlidesPerView();
+    window.addEventListener("resize", updateSlidesPerView);
+
+    return () => {
+      window.removeEventListener("resize", updateSlidesPerView);
+    };
   }, [axiosPublic]);
+  console.log(categories);
   return (
-    <>
-      <div ref={ref} className="keen-slider">
-        {categories.map((category, index) => (
-          <Link
-            href={category.href}
-            key={index}
-            className="keen-slider__slide  flex flex-col items-center p-2   group transition-transform duration-300 hover:scale-105 hover:text-[#EF6322] mouse-pointer"
-          >
-            <Image
-              className=" border-red-600 border   rounded-full p-1 group-hover:scale-110 transition-transform duration-300"
-              src={category.icon}
-              alt={category.label}
-              width={100}
-              height={100}
-              priority
-            />
-            <p className="mt-2">{category.label}</p>
-          </Link>
+    <div className="mt-5">
+      <Swiper
+        slidesPerView={slidesPerView}
+        navigation={true}
+        modules={[Navigation]}
+        className="mySwiper"
+      >
+        {categories.map((category) => (
+          <SwiperSlide className="px-10" key={category._id}>
+            <Link className="hover:font-semibold" href={category.href}>
+              <div className="border   rounded-full w-20 p-2 overflow-hidden">
+                <Image
+                  className="rounded-full w-40 transition-transform duration-300 ease-in-out transform hover:scale-150"
+                  width={40}
+                  priority
+                  height={0}
+                  src={category.icon}
+                  alt={category.label}
+                />
+              </div>
+
+              <p className="text-nowrap ">{category.label.slice(0, 8)}</p>
+            </Link>
+          </SwiperSlide>
         ))}
-      </div>
-    </>
+      </Swiper>
+    </div>
   );
 };
 

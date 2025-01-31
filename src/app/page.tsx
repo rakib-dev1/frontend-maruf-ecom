@@ -1,13 +1,15 @@
 import Categories from "@/components/client-components/categories-swiper/categories";
 import FeaturedProducts from "@/components/client-components/featured-products/featured-products";
-import Swiper from "@/components/client-components/swiper/swiper";
+import HeaderSwiper from "@/components/client-components/HeaderSwiper/swiper";
 
 const Home = () => {
   return (
     <div>
-      <Swiper />
-      <Categories />
-      <FeaturedProducts />
+      <HeaderSwiper />
+      <div className="container mx-auto">
+        <Categories />
+        <FeaturedProducts />
+      </div>
     </div>
   );
 };

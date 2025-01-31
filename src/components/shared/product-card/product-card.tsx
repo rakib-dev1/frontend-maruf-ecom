@@ -13,7 +13,6 @@ interface Product {
 }
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  console.log(product);
   const { title, image, price } = product;
 
   return (
@@ -24,6 +23,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           src={image}
           alt={title}
           width="0"
+          priority
           height="0"
           sizes="100vw"
           className="object-cover w-full h-auto  transition-transform duration-700 group-hover:scale-110"
