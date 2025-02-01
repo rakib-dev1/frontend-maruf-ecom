@@ -51,7 +51,9 @@ const Navbar = () => {
         <div className="flex items-center ">
           <div className="hidden md:block text-lg font-bold">
             {/* <Image priority width={120} height={100} src={logo} alt="FMLIO" /> */}
-            <h1 className="text-4xl text-white ">FMLO</h1>
+            <Link href="/">
+              <h1 className="text-4xl text-white ">FMLO</h1>
+            </Link>
           </div>
           <Sheet>
             <SheetTrigger asChild>

@@ -46,7 +46,7 @@ const Categories = () => {
       window.removeEventListener("resize", updateSlidesPerView);
     };
   }, [axiosPublic]);
-  console.log(categories);
+
   return (
     <div className="mt-5">
       <Swiper

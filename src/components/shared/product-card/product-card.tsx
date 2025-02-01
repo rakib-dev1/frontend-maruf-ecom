@@ -19,15 +19,16 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     <div className="group relative w-[250px] border  h-[278px] bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 mt-5">
       {/* Image Container */}
       <div className="relative h-[170px]  overflow-hidden">
-        <Image
-          src={image}
-          alt={title}
-          width="0"
-          priority
-          height="0"
-          sizes="100vw"
-          className="object-cover w-full h-auto  transition-transform duration-700 group-hover:scale-110"
-        />
+        <div className="">
+          <Image
+            src={image}
+            alt={title}
+            width={100}
+            priority
+            height={100}
+            className=" w-full  transition-transform duration-700 group-hover:scale-110"
+          />
+        </div>
 
         {/* Featured Badge */}
 
