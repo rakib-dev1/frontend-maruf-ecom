@@ -2,17 +2,18 @@ import Categories from "@/components/client-components/categories-swiper/categor
 import FeaturedProducts from "@/components/client-components/featured-products/featured-products";
 import HeaderSwiper from "@/components/client-components/HeaderSwiper/swiper";
 import MensFashion from "@/components/client-components/mega-menu/mens-fashion";
+import React from "react";
 
 const Home = () => {
   return (
-    <div>
+    <React.Fragment>
       <HeaderSwiper />
       <div className="container mx-auto">
         <Categories />
         <FeaturedProducts />
         <MensFashion />
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

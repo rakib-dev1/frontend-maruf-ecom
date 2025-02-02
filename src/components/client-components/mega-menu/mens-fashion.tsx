@@ -8,13 +8,13 @@ interface Category {
   label: string;
   image: string;
   title: string;
+  name: string;
+  price: number;
 }
 
 const MensFashion = () => {
   const [mensCategories, setMensCategories] = React.useState<Category[]>([]);
   const [highlights, setHighlights] = React.useState<Category[]>([]);
-  console.log(highlights);
-
   React.useEffect(() => {
     const fetchData = async () => {
       try {

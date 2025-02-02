@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Badge, Eye, Heart, ShoppingCart, Star } from "lucide-react";
+import { Badge, Heart, ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -16,17 +16,18 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const { title, image, price } = product;
 
   return (
-    <div className="group relative w-[250px] border  h-[278px] bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 mt-5">
+    <div className="group relative w-[199px] border  h-[273px] bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 mt-5">
       {/* Image Container */}
-      <div className="relative h-[170px]  overflow-hidden">
-        <div className="">
+
+      <div className="">
+        <div className="w-full">
           <Image
+            className=" object-cover max-w-full h-[200px] w-auto m-auto "
             src={image}
             alt={title}
-            width={100}
+            width={600}
+            height={350}
             priority
-            height={100}
-            className=" w-full  transition-transform duration-700 group-hover:scale-110"
           />
         </div>
 
@@ -43,14 +44,14 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
         {/* Quick Actions */}
         <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center gap-2 p-3 bg-white/95 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <Button
+          {/* <Button
             variant="outline"
             size="sm"
             className="flex items-center gap-1.5 text-xs hover:bg-black hover:text-white transition-colors"
           >
             <Eye className="w-3.5 h-3.5" />
             Quick View
-          </Button>
+          </Button> */}
           <Button
             size="sm"
             className="flex items-center gap-1.5 text-xs bg-black hover:bg-gray-800"

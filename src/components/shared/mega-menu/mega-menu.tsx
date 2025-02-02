@@ -1,13 +1,15 @@
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 import React from "react";
 import HighLightSwiper from "../highlight-swiper/highlight-swiper";
+import ProductSection from "./product-sections/product-section";
 
 interface MegaMenuProps {
   fashion: string;
   subFashion: Array<{
     _id: string;
-    label: React.ReactNode;
+    label: string;
+    name: string;
+    price: number;
   }>;
   highlight: Array<{
     image: string;
@@ -22,30 +24,45 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
   subFashion,
   highlight,
 }) => {
+  const [selectedSubCategory, setSelectedSubCategory] = React.useState<
+    MegaMenuProps["subFashion"][0] | null
+  >(null);
+  React.useEffect(() => {
+    if (subFashion.length > 0) {
+      setSelectedSubCategory(subFashion[0]); // Default to first sub-category
+    }
+  }, [subFashion]);
+
   return (
-    <div className="grid grid-cols-3 gap-4 border-t-2 mt-5">
-      <div>
+    <div className="grid grid-rows-3 md:grid-cols-6 gap-4 border-t-2 mt-5">
+      {/* First div (1/5 width on medium screens) */}
+      <div className="row-span-1 md:col-span-1">
         <h2 className="text-3xl font-bold">{fashion}</h2>
         <Separator />
         <ul>
           {subFashion.map((sub, index) => (
             <li key={index}>
-              <Link href="/">{sub.label}</Link>
+              <button
+                onClick={() => setSelectedSubCategory(sub)}
+                className="text-blue-500 hover:underline"
+              >
+                {sub.label}
+              </button>
             </li>
           ))}
         </ul>
       </div>
-      <div>
+
+      {/* Second div (2/5 width on medium screens) */}
+      <div className="hidden md:block md:col-span-2">
         <HighLightSwiper hImg={highlight} />
       </div>
-      <div>
-        <h2>Category 3</h2>
-        <ul>
-          <li>Subcategory 1</li>
-          <li>Subcategory 2</li>
-          <li>Subcategory 3</li>
-          <li>Subcategory 4</li>
-        </ul>
+
+      {/* Third div (3/5 width on medium screens) */}
+      <div className="row-span-1 md:col-span-3">
+        {selectedSubCategory && (
+          <ProductSection subCategory={selectedSubCategory} />
+        )}
       </div>
     </div>
   );
