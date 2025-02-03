@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 export default function BottomNav() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 sm:block md:hidden">
+    <div className="fixed z-10 bottom-0 left-0 right-0 sm:block md:hidden">
       <nav className="flex h-16 items-center justify-between border-t bg-background px-4">
         <Button
           variant="ghost"

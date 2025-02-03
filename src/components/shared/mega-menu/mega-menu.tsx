@@ -34,9 +34,9 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
   }, [subFashion]);
 
   return (
-    <div className="grid grid-rows-3 md:grid-cols-6 gap-4 border-t-2 mt-5">
+    <div className="grid grid-cols-6 gap-4 mt-5">
       {/* First div (1/5 width on medium screens) */}
-      <div className="row-span-1 md:col-span-1">
+      <div className="col-span-1">
         <h2 className="text-3xl font-bold">{fashion}</h2>
         <Separator />
         <ul>
@@ -54,12 +54,12 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
       </div>
 
       {/* Second div (2/5 width on medium screens) */}
-      <div className="hidden md:block md:col-span-2">
+      <div className="hidden md:block col-span-2 ">
         <HighLightSwiper hImg={highlight} />
       </div>
 
       {/* Third div (3/5 width on medium screens) */}
-      <div className="row-span-1 md:col-span-3">
+      <div className="col-span-3">
         {selectedSubCategory && (
           <ProductSection subCategory={selectedSubCategory} />
         )}

@@ -11,16 +11,22 @@ interface Category {
   name: string;
   price: number;
 }
-
-const MensFashion = () => {
+interface HighLightSectionProps {
+  category: string;
+  highlight: string;
+}
+const HighLightSection: React.FC<HighLightSectionProps> = ({
+  category,
+  highlight,
+}) => {
   const [mensCategories, setMensCategories] = React.useState<Category[]>([]);
   const [highlights, setHighlights] = React.useState<Category[]>([]);
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const [mensResponse, highlightsResponse] = await Promise.all([
-          GetCategories("Mens Shopping"),
-          GetHightLights({ category: "Mens Fashion" }),
+          GetCategories(`${category}`),
+          GetHightLights({ category: `${highlight}` }),
         ]);
 
         setMensCategories(mensResponse);
@@ -44,12 +50,12 @@ const MensFashion = () => {
     };
 
     fetchData();
-  }, []);
+  }, [category, highlight]);
 
   return (
     <div>
       <MegaMenu
-        fashion="Mens Fashion"
+        fashion={category}
         subFashion={mensCategories}
         highlight={highlights}
       />
@@ -57,4 +63,4 @@ const MensFashion = () => {
   );
 };
 
-export default MensFashion;
+export default HighLightSection;
