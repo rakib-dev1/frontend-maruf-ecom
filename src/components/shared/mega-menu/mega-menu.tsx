@@ -35,12 +35,12 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
   }, [subFashion]);
 
   return (
-    <div className="grid  grid-cols-2 lg:grid-cols-6  mt-5 border">
+    <div className="grid grid-cols-1 lg:grid-cols-6 mt-5 border-2 border-t-[#EF6322]">
       {/* First div (1/5 width on medium screens) */}
-      <div className="col-span-1">
+      <div className="col-span-1 text-center ">
         <h2 className="text-2xl font-bold p-3">{fashion}</h2>
         <Separator />
-        <ul>
+        <ul className="flex justify-center items-center lg:block lg:text-center lg:mx-auto">
           {subFashion.map((sub, index) => (
             <li className="text-center mr-5 my-3" key={index}>
               <button
@@ -60,7 +60,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
       </div>
 
       {/* Third div (3/5 width on medium screens) */}
-      <div className="col-span-3">
+      <div className="col-span-3 ">
         {selectedSubCategory && (
           <ProductSection subCategory={selectedSubCategory} />
         )}

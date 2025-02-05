@@ -34,7 +34,7 @@ const FeaturedProducts: React.FC & {
   }, []);
 
   return (
-    <div className="mt-5 min-h-screen px-5">
+    <div className="mt-5 mb-10 px-5">
       <div className="flex justify-between items-center my-1">
         <h1 className="text-2xl font-semibold">Featured Products</h1>
         <Link href="">

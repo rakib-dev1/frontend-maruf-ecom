@@ -16,7 +16,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const { title, image, price } = product;
 
   return (
-    <div className=" mt-2 relative h-[278px] w-[185px]   border border-transparent hover:border-blue-600  transition-transform duration-300 ease">
+    <div className="p-3 mt-2 mb-2 mx-auto relative h-[278px] w-[185px]   border border-transparent hover:border-blue-600  transition-transform duration-300 ease">
       <Image
         className="w-full h-[185px] object-contain repeat-0 m-auto"
         src={image}

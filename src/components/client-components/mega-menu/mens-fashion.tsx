@@ -53,7 +53,7 @@ const HighLightSection: React.FC<HighLightSectionProps> = ({
   }, [category, highlight]);
 
   return (
-    <div>
+    <div className="mt-20">
       <MegaMenu
         fashion={category}
         subFashion={mensCategories}

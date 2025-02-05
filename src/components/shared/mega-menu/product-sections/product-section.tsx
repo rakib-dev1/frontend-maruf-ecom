@@ -6,8 +6,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import ProductCard from "../../product-card/product-card";
 import { Navigation, Pagination } from "swiper/modules";
+import ProductCard from "../../product-card/product-card";
 
 interface SubCategory {
   label: string;
@@ -44,29 +44,41 @@ const ProductSection: React.FC<{ subCategory: SubCategory }> = ({
 
   return (
     <React.Fragment>
-      <div>
-        <Swiper
-          slidesPerView={4} // Default for larger screens
-          spaceBetween={-10}
-          pagination={{ clickable: true }}
-          navigation={true}
-          // Enable navigation
-          modules={[Navigation, Pagination]}
-          className="mySwiper"
-          grid={{ rows: 2 }}
-          breakpoints={{
-            320: { slidesPerView: 1, spaceBetween: 10 }, // Extra small screens
-            640: { slidesPerView: 2, spaceBetween: 20 }, // Small devices
-            1024: { slidesPerView: 3, spaceBetween: -10 }, // Larger devices
-          }}
-        >
+      <Swiper
+        slidesPerView={2} // Default for larger screens
+        spaceBetween={-10}
+        pagination={{ clickable: true }}
+        navigation={true}
+        modules={[Navigation, Pagination]}
+        grid={{ rows: 2, fill: "row" }} // Display 2 rows
+        className="mySwiper"
+        breakpoints={{
+          // When the screen width is 768px or less (for small devices)
+          768: {
+            slidesPerView: 2, // Show 2 slides per row
+            grid: {
+              rows: 2, // 2 rows
+              fill: "row", // Wrap items into rows
+            },
+          },
+          // When the screen width is 1024px or less (for medium devices)
+          1024: {
+            slidesPerView: 3, // Show 3 slides per row
+            grid: {
+              rows: 2, // 2 rows
+              fill: "row", // Wrap items into rows
+            },
+          },
+        }}
+      >
+        <div>
           {products.map((product) => (
             <SwiperSlide key={product._id}>
               <ProductCard product={product} />
             </SwiperSlide>
           ))}
-        </Swiper>
-      </div>
+        </div>
+      </Swiper>
     </React.Fragment>
   );
 };
