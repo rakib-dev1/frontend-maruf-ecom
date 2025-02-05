@@ -10,7 +10,12 @@ const nextConfig: NextConfig = {
         hostname: "i.postimg.cc",
         pathname: "**",
       },
-      
+
+      {
+        protocol: "https",
+        hostname: "fakestoreapi.com",
+        pathname: "**",
+      },
     ],
   },
 };

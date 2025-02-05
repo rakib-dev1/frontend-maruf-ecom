@@ -25,12 +25,12 @@ const HighLightSwiper = ({ hImg }: { hImg: ImageType[] }) => {
           {hImg.map((img) => (
             <SwiperSlide key={img._id}>
               <Image
-                className="w-full h-full"
+                className="w-full h-[540px] "
                 priority
                 src={img.image}
                 alt={img.title}
                 width={300}
-                height={300}
+                height={200}
               />
             </SwiperSlide>
           ))}

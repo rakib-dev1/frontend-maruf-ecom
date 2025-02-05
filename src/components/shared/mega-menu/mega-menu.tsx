@@ -10,6 +10,7 @@ interface MegaMenuProps {
     label: string;
     name: string;
     price: number;
+    title: string;
   }>;
   highlight: Array<{
     image: string;
@@ -34,14 +35,14 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
   }, [subFashion]);
 
   return (
-    <div className="grid grid-cols-6 gap-4 mt-5">
+    <div className="grid  grid-cols-2 lg:grid-cols-6  mt-5 border">
       {/* First div (1/5 width on medium screens) */}
       <div className="col-span-1">
-        <h2 className="text-3xl font-bold">{fashion}</h2>
+        <h2 className="text-2xl font-bold p-3">{fashion}</h2>
         <Separator />
         <ul>
           {subFashion.map((sub, index) => (
-            <li key={index}>
+            <li className="text-center mr-5 my-3" key={index}>
               <button
                 onClick={() => setSelectedSubCategory(sub)}
                 className="text-blue-500 hover:underline"
@@ -54,7 +55,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
       </div>
 
       {/* Second div (2/5 width on medium screens) */}
-      <div className="hidden md:block col-span-2 ">
+      <div className="hidden lg:block col-span-2">
         <HighLightSwiper hImg={highlight} />
       </div>
 

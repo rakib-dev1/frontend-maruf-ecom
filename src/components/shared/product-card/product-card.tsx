@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Badge, Heart, ShoppingCart, Star } from "lucide-react";
+
 import Image from "next/image";
 import React from "react";
 
@@ -16,71 +16,21 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const { title, image, price } = product;
 
   return (
-    <div className="group relative w-[199px] border  h-[273px] bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 mt-5">
-      {/* Image Container */}
+    <div className=" mt-2 relative h-[278px] w-[185px]   border border-transparent hover:border-blue-600  transition-transform duration-300 ease">
+      <Image
+        className="w-full h-[185px] object-contain repeat-0 m-auto"
+        src={image}
+        alt={title}
+        width={200}
+        height={100}
+      />
+      <h1 className="mt-3 text-sm">{title.slice(0, 20)}</h1>
+      <p>Rating: 43</p>
 
-      <div className="">
-        <div className="w-full">
-          <Image
-            className=" object-cover max-w-full h-[200px] w-auto m-auto "
-            src={image}
-            alt={title}
-            width={600}
-            height={350}
-            priority
-          />
-        </div>
-
-        {/* Featured Badge */}
-
-        <Badge className="absolute top-3 left-3 bg-orange-500 hover:bg-orange-600">
-          FEATURED
-        </Badge>
-
-        {/* Wishlist Button */}
-        <button className="absolute top-3 right-3 p-2 rounded-full bg-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-          <Heart className="w-4 h-4 text-gray-600 hover:text-red-500 transition-colors" />
-        </button>
-
-        {/* Quick Actions */}
-        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center gap-2 p-3 bg-white/95 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          {/* <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-1.5 text-xs hover:bg-black hover:text-white transition-colors"
-          >
-            <Eye className="w-3.5 h-3.5" />
-            Quick View
-          </Button> */}
-          <Button
-            size="sm"
-            className="flex items-center gap-1.5 text-xs bg-black hover:bg-gray-800"
-          >
-            <ShoppingCart className="w-3.5 h-3.5" />
-            Add to Cart
-          </Button>
-        </div>
-      </div>
-
-      {/* Product Info */}
-      <div className="p-4">
-        <h3 className="mt-1 text-sm font-medium text-gray-900 line-clamp-1">
-          {title}
-        </h3>
-
-        {/* Rating */}
-        <div className="mt-1.5 flex items-center gap-1">
-          <div className="flex items-center">
-            <Star className="w-4" />
-          </div>
-          <span className="text-xs text-gray-500">({3})</span>
-        </div>
-
-        {/* Price */}
-        <div className="mt-2 text-base font-bold text-gray-900">
-          ${price?.toFixed(2)}
-        </div>
-      </div>
+      <p>${price}</p>
+      <Button className="absolute bottom-1 right-3" size="sm">
+        Buy Now
+      </Button>
     </div>
   );
 };

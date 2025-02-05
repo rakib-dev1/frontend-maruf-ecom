@@ -22,11 +22,11 @@ const FeaturedProductSwiper = ({ products }: { products: Product[] }) => {
   useEffect(() => {
     const updateSlidesPerView = () => {
       if (window.innerWidth < 640) {
-        setSlidesPerView(3);
+        setSlidesPerView(2);
       } else if (window.innerWidth < 1024) {
         setSlidesPerView(4);
       } else {
-        setSlidesPerView(5);
+        setSlidesPerView(6);
       }
     };
 
@@ -41,7 +41,7 @@ const FeaturedProductSwiper = ({ products }: { products: Product[] }) => {
   return (
     <Swiper
       slidesPerView={slidesPerView}
-      spaceBetween={30}
+      spaceBetween={0}
       navigation={{
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
@@ -52,11 +52,13 @@ const FeaturedProductSwiper = ({ products }: { products: Product[] }) => {
     >
       <div className="swiper-button-prev"></div>
       <div className="swiper-button-next"></div>
-      {products.map((product) => (
-        <SwiperSlide key={product.id}>
-          <ProductCard product={product} />
-        </SwiperSlide>
-      ))}
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5   mt-10 ">
+        {products.map((product) => (
+          <SwiperSlide key={product.id}>
+            <ProductCard product={product} />
+          </SwiperSlide>
+        ))}
+      </div>
     </Swiper>
   );
 };
