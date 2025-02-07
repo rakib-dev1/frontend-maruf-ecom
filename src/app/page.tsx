@@ -16,6 +16,10 @@ const Home = () => {
           category="Womens Fashion"
           highlight="Womens Fashion"
         />
+        <HighLightSection
+          category="Fashion Categories"
+          highlight="Womens Fashion"
+        />
       </div>
     </React.Fragment>
   );

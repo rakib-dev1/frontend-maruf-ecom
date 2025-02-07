@@ -1,7 +1,6 @@
 import AxiosPublic from "@/services/axios-public";
 
 const GetProducts = async (category = "", subcategory = "") => {
-  console.log(category, subcategory);
   const axiosPublic = AxiosPublic();
   try {
     const query = new URLSearchParams();

@@ -5,10 +5,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import { Navigation, Pagination } from "swiper/modules";
 import ProductCard from "../../product-card/product-card";
-
+interface Product {
+  _id: Key | null | undefined;
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  title: string;
+}
 interface SubCategory {
   label: string;
   name: string;
@@ -19,19 +25,7 @@ interface SubCategory {
 const ProductSection: React.FC<{ subCategory: SubCategory }> = ({
   subCategory,
 }) => {
-  console.log(subCategory.label);
-
-  interface Product {
-    _id: Key | null | undefined;
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    title: string;
-  }
-
   const [products, setProducts] = React.useState<Product[]>([]);
-
   React.useEffect(() => {
     const fetchSubCategoryProducts = async () => {
       const data = await GetProducts(subCategory.label);
@@ -39,9 +33,6 @@ const ProductSection: React.FC<{ subCategory: SubCategory }> = ({
     };
     fetchSubCategoryProducts();
   }, [subCategory.label]);
-
-  console.log(products);
-
   return (
     <React.Fragment>
       <Swiper

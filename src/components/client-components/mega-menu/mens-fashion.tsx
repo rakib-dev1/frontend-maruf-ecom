@@ -25,8 +25,8 @@ const HighLightSection: React.FC<HighLightSectionProps> = ({
     const fetchData = async () => {
       try {
         const [mensResponse, highlightsResponse] = await Promise.all([
-          GetCategories(`${category}`),
-          GetHightLights({ category: `${highlight}` }),
+          GetCategories(category === "Fashion Categories" ? "" : category),
+          GetHightLights({ category: highlight }),
         ]);
 
         setMensCategories(mensResponse);

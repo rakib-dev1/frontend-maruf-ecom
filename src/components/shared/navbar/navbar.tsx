@@ -11,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import GetCategories from "@/lib/get_categories";
 import AxiosPublic from "@/services/axios-public";
 import { ChevronDown, ChevronUp, Menu, ShoppingCart } from "lucide-react";
 import Image from "next/image";
@@ -35,8 +36,8 @@ const Navbar = () => {
   React.useEffect(() => {
     const fetchNavItems = async () => {
       try {
-        const response = await axiosPublic.get("/categories");
-        setNavItems(response.data);
+        const response = await GetCategories();
+        setNavItems(response);
       } catch (error) {
         console.error(error);
       }
@@ -45,7 +46,7 @@ const Navbar = () => {
   }, [axiosPublic]);
 
   return (
-    <div className="bg-[#EF6322] h-[80px] md:h-[150px] py-3 px-1 sticky top-0 z-50">
+    <div className="bg-[#EF6322] h-[80px] md:h-[110px] py-3 px-1 sticky top-0 z-50">
       <nav className="flex items-center justify-between  px-4">
         {/* Left Side: Logo or Menu */}
         <div className="flex items-center ">
@@ -140,7 +141,7 @@ const Navbar = () => {
       </nav>
       {/* Secondary Navigation Bar */}
 
-      <div className="hidden py-5 md:flex justify-center space-x-4 mt-2 ">
+      <div className="hidden py-2  md:flex justify-center space-x-4 ">
         {navItems.map((item) => (
           <div key={item.label} className="relative group">
             <button
@@ -157,14 +158,14 @@ const Navbar = () => {
 
             {/* Subcategories (Toggle Visibility) */}
             <ul
-              className={`absolute left-0 top-full  mt-7 w-52 bg-white text-black shadow-lg rounded-md overflow-hidden transition-max-height duration-300 ease-in-out ${
+              className={`absolute left-0 top-full mt-2 w-52 bg-white text-black shadow-lg rounded-b-xl overflow-hidden transition-max-height duration-300 ease-in-out ${
                 expandedCategory === item.label ? "max-h-screen" : "max-h-0"
               }`}
             >
               {item.subcategories.map((subcategory) => (
                 <li
                   key={subcategory.label}
-                  className="text-left my-2  px-4 py-2 hover:bg-gray-100"
+                  className="text-left hover:text-white  px-4 py-2 hover:bg-[#EF6322]"
                 >
                   <Link href={subcategory.href}>{subcategory.label}</Link>
                 </li>
