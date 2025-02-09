@@ -3,7 +3,11 @@ import { Separator } from "@/components/ui/separator";
 import React, { Suspense } from "react";
 import Loading from "./loading";
 
-const ProductsLayout = () => {
+const ProductsLayout = ({
+  children,
+}:{
+  children: React.ReactNode;
+}) => {
   return (
     <React.Fragment>
       <div className="grid grid-flow-col grid-cols-5">
@@ -14,7 +18,7 @@ const ProductsLayout = () => {
             <CategoriesTabs />
           </Suspense>
         </div>
-        <div className="border col-span-4">all products</div>
+        <div className="border col-span-4">{children}</div>
       </div>
     </React.Fragment>
   );

@@ -13,15 +13,18 @@ interface Category {
     label: string;
   }[];
 }
+
 const CategoriesTabs = () => {
   const [categories, setCategories] = React.useState<Category[]>([]);
-
   const [expandedCategory, setExpandedCategory] = React.useState<string | null>(
     null
   );
+  
+
   const toggleCategory = (label: string) => {
     setExpandedCategory((prev) => (prev === label ? null : label));
   };
+
   React.useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -31,21 +34,25 @@ const CategoriesTabs = () => {
         console.error(error);
       }
     };
-
     fetchCategories();
   }, []);
+
   return (
     <React.Fragment>
       <ul>
-        {categories.map((c) => (
+        {categories?.map((c) => (
           <div key={c.label}>
             {/* Category Label */}
             <Button
               variant="ghost"
               className="w-full text-left flex justify-between items-center"
-              onClick={() => toggleCategory(c.label)}
+              onClick={() => {
+                toggleCategory(c.label);
+              }}
             >
-              <span>{c.label}</span>
+              <Link href={`/products?category=${encodeURIComponent(c.label)}`}>
+                {c.label}
+              </Link>
               {expandedCategory === c.label ? (
                 <ChevronUp className="w-5 h-5" />
               ) : (
@@ -55,13 +62,19 @@ const CategoriesTabs = () => {
 
             {/* Subcategories (Toggle Visibility) */}
             <ul
-              className={`ml-4 overflow-hidden   transition-max-height duration-300 ease-in-out ${
+              className={`ml-4 overflow-hidden transition-max-height duration-300 ease-in-out ${
                 expandedCategory === c.label ? "max-h-screen" : "max-h-0"
               }`}
             >
-              {c.subcategories.map((subcategory) => (
-                <li key={subcategory.label} className="text-left  my-2">
-                  <Link href={subcategory.href}>{subcategory.label}</Link>
+              {c.subcategories?.map((subcategory) => (
+                <li key={subcategory.label} className="text-left my-2">
+                  <Link
+                    href={`/products?category=${encodeURIComponent(
+                      subcategory.label
+                    )}`}
+                  >
+                    {subcategory.label}
+                  </Link>
                 </li>
               ))}
             </ul>

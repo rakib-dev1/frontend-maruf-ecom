@@ -14,6 +14,7 @@ import {
 import GetCategories from "@/lib/get_categories";
 import AxiosPublic from "@/services/axios-public";
 import { ChevronDown, ChevronUp, Menu, ShoppingCart } from "lucide-react";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -58,7 +59,7 @@ const Navbar = () => {
           </div>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden  text-white p-2">
+              <Button variant="ghost" className="md:hidden text-white p-2">
                 <Menu className="w-6 h-6" />
               </Button>
             </SheetTrigger>
@@ -71,7 +72,7 @@ const Navbar = () => {
               <SheetDescription />
               <Separator />
               <div>
-                {navItems.map((item) => (
+                {navItems?.map((item) => (
                   <div key={item.label}>
                     {/* Category Label */}
                     <Button
@@ -86,7 +87,6 @@ const Navbar = () => {
                         <ChevronDown className="w-5 h-5" />
                       )}
                     </Button>
-
                     {/* Subcategories (Toggle Visibility) */}
                     <ul
                       className={`ml-4 overflow-hidden   transition-max-height duration-300 ease-in-out ${
@@ -95,7 +95,7 @@ const Navbar = () => {
                           : "max-h-0"
                       }`}
                     >
-                      {item.subcategories.map((subcategory) => (
+                      {item?.subcategories?.map((subcategory) => (
                         <li key={subcategory.label} className="text-left  my-2">
                           <Link href={subcategory.href}>
                             {subcategory.label}
@@ -119,6 +119,7 @@ const Navbar = () => {
           <Button variant="outline" className="hidden md:block ">
             Login/Signup
           </Button>
+
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" className="p-2 text-white">
@@ -142,7 +143,7 @@ const Navbar = () => {
       {/* Secondary Navigation Bar */}
 
       <div className="hidden py-2  md:flex justify-center space-x-4 ">
-        {navItems.map((item) => (
+        {navItems?.map((item) => (
           <div key={item.label} className="relative group">
             <button
               className="text-left  text-white flex justify-between items-center"
@@ -162,7 +163,7 @@ const Navbar = () => {
                 expandedCategory === item.label ? "max-h-screen" : "max-h-0"
               }`}
             >
-              {item.subcategories.map((subcategory) => (
+              {item?.subcategories?.map((subcategory) => (
                 <li
                   key={subcategory.label}
                   className="text-left hover:text-white  px-4 py-2 hover:bg-[#EF6322]"

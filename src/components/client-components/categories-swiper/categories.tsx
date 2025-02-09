@@ -23,7 +23,7 @@ const Categories = () => {
     const fetchCategories = async () => {
       try {
         const response = await axiosPublic.get("/categories");
-        setCategories(response.data);
+        setCategories(response?.data);
       } catch (error) {
         console.error(error);
       }
@@ -55,21 +55,21 @@ const Categories = () => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {categories.map((category) => (
-          <SwiperSlide className="px-10" key={category._id}>
-            <Link className="hover:font-semibold" href={category.href}>
-              <div className="border   rounded-full w-20 p-2 overflow-hidden">
-                <Image
-                  className="rounded-full w-40 transition-transform duration-300 ease-in-out transform hover:scale-150"
-                  width={40}
-                  priority
-                  height={0}
-                  src={category.icon}
-                  alt={category.label}
-                />
+        {categories?.map((category) => (
+          <SwiperSlide className="px-10" key={category?._id}>
+            <Link href="" className="hover:font-semibold">
+              <div className="border rounded-full w-20 p-2 overflow-hidden">
+                {category?.icon && (
+                  <Image
+                    src={category?.icon}
+                    alt={category?.label}
+                    width={50}
+                    height={50}
+                  />
+                )}
               </div>
 
-              <p className="text-nowrap ">{category.label.slice(0, 8)}</p>
+              <p className="text-nowrap ">{category?.label?.slice(0, 8)}</p>
             </Link>
           </SwiperSlide>
         ))}
