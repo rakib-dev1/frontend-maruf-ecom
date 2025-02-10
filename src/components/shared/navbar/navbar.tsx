@@ -23,6 +23,7 @@ import { Url } from "url";
 const Navbar = () => {
   const axiosPublic = AxiosPublic();
   interface NavItem {
+    href: string;
     label: string;
     subcategories: {
       href: Url;
@@ -107,7 +108,7 @@ const Navbar = () => {
                       {item?.subcategories?.map((subcategory) => (
                         <li key={subcategory.label} className="text-left  my-2">
                           <Link
-                            href={`/products/${item.label}/category=${subcategory.label}`}
+                            href={`/products/${item.href}/${subcategory.label}`}
                           >
                             {subcategory.label}
                           </Link>
@@ -179,9 +180,7 @@ const Navbar = () => {
                   key={subcategory.label}
                   className="text-left hover:text-white  px-4 py-2 hover:bg-[#EF6322]"
                 >
-                  <Link
-                    href={`/products/${item.label}?category=${subcategory.label}`}
-                  >
+                  <Link href={`/products${item.href}/${subcategory.label}`}>
                     {subcategory.label}
                   </Link>
                 </li>
