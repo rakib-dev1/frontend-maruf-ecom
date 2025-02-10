@@ -1,20 +1,15 @@
 import CategoriesTabs from "@/components/client-components/categories-swiper/categories-tab/categories-tab";
 import { Separator } from "@/components/ui/separator";
 import React, { Suspense } from "react";
-import Loading from "./loading";
 
-const ProductsLayout = ({
-  children,
-}:{
-  children: React.ReactNode;
-}) => {
+const ProductsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <React.Fragment>
-      <div className="grid grid-flow-col grid-cols-5">
-        <div className="border col-span-1">
+      <div className="grid-cols-none lg:grid lg:grid-cols-5 gap-3">
+        <div className="hidden lg:block border col-span-1">
           <h1>Product Categories</h1>
           <Separator />
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<p>Loading...</p>}>
             <CategoriesTabs />
           </Suspense>
         </div>

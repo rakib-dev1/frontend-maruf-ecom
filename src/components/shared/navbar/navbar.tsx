@@ -66,7 +66,16 @@ const Navbar = () => {
             <SheetContent side="left">
               <SheetHeader>
                 <SheetTitle>
-                  <Image width={120} height={100} src={logo} alt="FMLIO" />
+                  <Link href="/">
+                    {" "}
+                    <Image
+                      priority
+                      width={120}
+                      height={100}
+                      src={logo}
+                      alt="FMLIO"
+                    />
+                  </Link>
                 </SheetTitle>
               </SheetHeader>
               <SheetDescription />
@@ -97,7 +106,9 @@ const Navbar = () => {
                     >
                       {item?.subcategories?.map((subcategory) => (
                         <li key={subcategory.label} className="text-left  my-2">
-                          <Link href={subcategory.href}>
+                          <Link
+                            href={`/products/${item.label}/category=${subcategory.label}`}
+                          >
                             {subcategory.label}
                           </Link>
                         </li>
@@ -168,7 +179,11 @@ const Navbar = () => {
                   key={subcategory.label}
                   className="text-left hover:text-white  px-4 py-2 hover:bg-[#EF6322]"
                 >
-                  <Link href={subcategory.href}>{subcategory.label}</Link>
+                  <Link
+                    href={`/products/${item.label}?category=${subcategory.label}`}
+                  >
+                    {subcategory.label}
+                  </Link>
                 </li>
               ))}
             </ul>

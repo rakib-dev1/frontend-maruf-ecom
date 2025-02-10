@@ -1,54 +1,26 @@
 "use client";
-import ProductCard from "@/components/shared/product-card/product-card";
-import GetProducts from "@/lib/get_products";
-import { useSearchParams } from "next/navigation";
-import React from "react";
 
-interface Product {
-  _id: string;
-  id: number;
-  title: string;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-}
+import { usePathname } from "next/navigation";
 
-const Products = () => {
-  const searchParams = useSearchParams();
-  const category = searchParams?.get("category") || "";
-  const subcategory = searchParams?.get("subcategory") || "";
+const ProductsPage = () => {
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/").filter(Boolean); // Removes empty segments
 
-  const [products, setProducts] = React.useState<Product[]>([]);
-
-  React.useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await GetProducts(category, subcategory); // Pass both params
-        setProducts(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchProducts();
-  }, [category, subcategory]); // Run effect when category or subcategory changes
-
+  const category = pathSegments[1] || "All Products"; // Extract category (2nd segment)
+  const subcategory = pathSegments[2] || null;
+  // Extract subcategory (3rd segment)
+  console.log(pathname);
+  console.log(subcategory);
   return (
-    <div className="container mx-auto">
-      <h1 className="text-xl font-bold my-4">
-        Showing: {subcategory || category || "All Products"}
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))
-        ) : (
-          <p>No products found</p>
-        )}
-      </div>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">Products Page</h1>
+      <p className="mt-2 text-gray-600">Current Path: {pathname}</p>
+      <h2 className="mt-4 text-xl font-semibold">Category: {category}</h2>
+      {subcategory && (
+        <h3 className="mt-2 text-lg">Subcategory: {subcategory}</h3>
+      )}
     </div>
   );
 };
 
-export default Products;
+export default ProductsPage;

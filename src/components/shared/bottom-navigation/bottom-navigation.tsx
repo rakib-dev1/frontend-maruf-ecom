@@ -39,7 +39,7 @@ export default function BottomNav() {
           className="flex flex-col items-center gap-1 h-full"
           asChild
         >
-          <Link href="#">
+          <Link href="/">
             <div className="rounded-full bg-orange-500 p-3 -mt-8">
               <Home className="h-5 w-5 text-white" />
             </div>
