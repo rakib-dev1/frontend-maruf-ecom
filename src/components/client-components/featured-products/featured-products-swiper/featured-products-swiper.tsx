@@ -9,6 +9,7 @@ import { Navigation, Grid } from "swiper/modules";
 import { useState, useEffect } from "react";
 
 interface Product {
+  _id: number;
   id: number;
   name: string;
   price: number;
