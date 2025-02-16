@@ -3,7 +3,6 @@ import FeaturedProducts from "@/components/client-components/featured-products/f
 import HeaderSwiper from "@/components/client-components/HeaderSwiper/swiper";
 import HighLightSection from "@/components/client-components/mega-menu/mens-fashion";
 import React from "react";
-
 const Home = () => {
   return (
     <React.Fragment>

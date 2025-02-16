@@ -1,4 +1,5 @@
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 import React from "react";
 
 import { ReactNode } from "react";
@@ -11,8 +12,8 @@ const DashboardLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
           <h1>Dashboard</h1>
           <Separator />
           <ul className="mt-5">
-            <li>Dashboard</li>
-            <li>New Products</li>
+            <Link href="/dashboard/add-new-products">Add Products</Link>
+
             <li>Orders</li>
             <li>Customers</li>
             <li>Settings</li>

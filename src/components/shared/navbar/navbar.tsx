@@ -55,7 +55,7 @@ const Navbar = () => {
           <div className="hidden md:block text-lg font-bold">
             {/* <Image priority width={120} height={100} src={logo} alt="FMLIO" /> */}
             <Link href="/">
-              <h1 className="text-4xl text-white ">FMLO</h1>
+              <h1 className="text-4xl text-white ">FMLIO</h1>
             </Link>
           </div>
           <Sheet>

@@ -33,6 +33,13 @@ const DynamicProductsPage = () => {
   }, [category, subcategory]);
   return (
     <React.Fragment>
+      <div className="text-center">
+        {category || subcategory ? (
+          <>
+            <h1>{category}</h1> <h1>{subcategory}</h1>{" "}
+          </>
+        ) : null}
+      </div>
       {products?.length > 0 ? (
         <div className="grid grid-cols-2 lg:grid-cols-4">
           {products.map((product) => (

@@ -53,13 +53,13 @@ const HighLightSection: React.FC<HighLightSectionProps> = ({
   }, [category, highlight]);
 
   return (
-    <div className="mt-20">
+    <React.Fragment>
       <MegaMenu
         fashion={category}
         subFashion={mensCategories}
         highlight={highlights}
       />
-    </div>
+    </React.Fragment>
   );
 };
 
