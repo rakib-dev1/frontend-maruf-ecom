@@ -3,9 +3,7 @@ import ProductCard from "@/components/shared/product-card/product-card";
 import GetProducts from "@/lib/get_products";
 import React from "react";
 interface Products {
-  _id: number;
-  id: number;
-  name: string;
+  _id: string;
   title: string;
   price: number;
   image: string;

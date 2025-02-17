@@ -16,6 +16,7 @@ interface Product {
   image: string;
 }
 
+
 const FeaturedProducts: React.FC & {
   preload?: () => Promise<Product[]>;
 } = () => {

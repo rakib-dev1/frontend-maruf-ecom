@@ -5,12 +5,10 @@ import Link from "next/link";
 import React from "react";
 
 interface Product {
-  // Define the properties of the product here
-  _id: number;
+  _id: string;
   title: string;
-  name: string;
-  price: number;
   image: string;
+  price: number;
 }
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {

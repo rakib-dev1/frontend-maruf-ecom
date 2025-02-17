@@ -8,16 +8,22 @@ import "swiper/css/grid";
 import { Navigation, Grid } from "swiper/modules";
 import { useState, useEffect } from "react";
 
+
+
+
 interface Product {
-  _id: number;
-  id: number;
+  _id: string;
+  title: string;
   name: string;
   price: number;
-  title: string;
   image: string;
 }
 
-const FeaturedProductSwiper = ({ products }: { products: Product[] }) => {
+interface FeaturedProductSwiperProps {
+  products: Product[];
+}
+
+const FeaturedProductSwiper = ({ products }: FeaturedProductSwiperProps) => {
   const [slidesPerView, setSlidesPerView] = useState(5);
 
   useEffect(() => {
@@ -54,8 +60,8 @@ const FeaturedProductSwiper = ({ products }: { products: Product[] }) => {
       <div className="swiper-button-prev"></div>
       <div className="swiper-button-next"></div>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5   mt-10 ">
-        {products.map((product) => (
-          <SwiperSlide key={product.id}>
+        {products.map(product => (
+          <SwiperSlide key={product._id}>
             <ProductCard product={product} />
           </SwiperSlide>
         ))}

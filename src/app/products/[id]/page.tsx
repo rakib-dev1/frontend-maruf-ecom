@@ -18,7 +18,6 @@ const SingleProducts = () => {
   const params = useParams();
   const id = params?.id || [];
   const [products, setProducts] = React.useState<Products[]>([]);
-  console.log("products", products);
   React.useEffect(() => {
     const fetchProducts = async () => {
       const response = await GetProducts();
@@ -26,7 +25,8 @@ const SingleProducts = () => {
     };
     fetchProducts();
   }, []);
-  console.log("id", id);
+  console.log(products);
+
   return (
     <React.Fragment>
       <h1>{id}</h1>
