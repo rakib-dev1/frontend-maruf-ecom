@@ -1,5 +1,5 @@
 import GetProducts from "@/lib/get_products";
-import React, { Key } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import ProductCard from "../../product-card/product-card";
 interface Product {
-  _id: Key | null | undefined;
+  _id: string;
   id: number;
   name: string;
   price: number;
