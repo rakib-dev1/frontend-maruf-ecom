@@ -139,7 +139,7 @@ const Navbar = () => {
               Sign out
             </Button>
           ) : (
-            <Link href="/login">
+            <Link href="/auth/login">
               <Button variant="outline" className="hidden md:block ">
                 Login/Signup
               </Button>
