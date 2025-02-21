@@ -12,24 +12,24 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import GetCategories from "@/lib/get_categories";
-import AxiosPublic from "@/services/axios-public";
 import { ChevronDown, ChevronUp, Menu, ShoppingCart } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Url } from "url";
-
-const Navbar = () => {
-  const axiosPublic = AxiosPublic();
-  interface NavItem {
-    href: string;
+interface NavItem {
+  href: string;
+  label: string;
+  subcategories: {
+    href: Url;
     label: string;
-    subcategories: {
-      href: Url;
-      label: string;
-    }[];
-  }
+  }[];
+}
+const Navbar = () => {
+  const { data: session, status } = useSession();
+
   const [navItems, setNavItems] = React.useState<NavItem[]>([]);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const toggleCategory = (label: string) => {
@@ -45,7 +45,7 @@ const Navbar = () => {
       }
     };
     fetchNavItems();
-  }, [axiosPublic]);
+  }, []);
 
   return (
     <div className="bg-[#EF6322] h-[80px] md:h-[110px] py-3 px-1 sticky top-0 z-50">
@@ -128,9 +128,23 @@ const Navbar = () => {
         {/* Right Side: Cart Button and Login/Signup */}
 
         <div className="flex items-center space-x-2">
-          <Button variant="outline" className="hidden md:block ">
-            Login/Signup
-          </Button>
+          {status === "loading" ? (
+            <p>Loading...</p>
+          ) : session ? (
+            <Button
+              onClick={() => signOut()}
+              variant="ghost"
+              className="text-white"
+            >
+              Sign out
+            </Button>
+          ) : (
+            <Link href="/login">
+              <Button variant="outline" className="hidden md:block ">
+                Login/Signup
+              </Button>
+            </Link>
+          )}
 
           <Sheet>
             <SheetTrigger asChild>
