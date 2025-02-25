@@ -1,181 +1,87 @@
 "use client";
 
-import type React from "react";
-
 import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Plus, Upload, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Button } from "@/components/ui/button";
 
 type ImageItem = {
   id: string;
   url: string;
+  file?: File;
 };
 
-const DraggableThumb = ({
-  image,
-  index,
-  moveImage,
-  isSelected,
-  onClick,
-  onRemove,
+export default function ImageUpload({
+  value = [],
+  onChange,
 }: {
-  image: ImageItem;
-  index: number;
-  moveImage: (dragIndex: number, hoverIndex: number) => void;
-  isSelected: boolean;
-  onClick: () => void;
-  onRemove: () => void;
-}) => {
-  const [{ isDragging }, drag] = useDrag({
-    type: "IMAGE",
-    item: { index },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const [, drop] = useDrop({
-    accept: "IMAGE",
-    hover: (item: { index: number }) => {
-      if (item.index !== index) {
-        moveImage(item.index, index);
-        item.index = index;
-      }
-    },
-  });
-
-  return (
-    <div
-      ref={(node) => {
-        if (node) {
-          drag(drop(node));
-        }
-      }}
-      className={cn(
-        "relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-opacity group",
-        isSelected ? "border-primary" : "border-muted",
-        isDragging ? "opacity-50" : "opacity-100"
-      )}
-      onClick={onClick}
-    >
-      <Image
-        src={image.url || "/placeholder.svg"}
-        alt={`Thumbnail ${index + 1}`}
-        fill
-        className="object-cover"
-      />
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onRemove();
-        }}
-        className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-        aria-label="Remove image"
-      >
-        <X className="w-4 h-4" />
-      </button>
-    </div>
-  );
-};
-
-export default function ImageUpload() {
-  const [images, setImages] = useState<ImageItem[]>([]);
+  value?: ImageItem[];
+  onChange: (images: ImageItem[]) => void;
+}) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFiles = useCallback((files: FileList) => {
-    Array.from(files).forEach((file) => {
-      if (!file.type.startsWith("image/")) return;
+  // Handle new file uploads
+  const handleFiles = useCallback(
+    (files: FileList) => {
+      const newImages = Array.from(files)
+        .filter((file) => file.type.startsWith("image/"))
+        .map((file) => ({
+          id: Math.random().toString(36).slice(2),
+          url: URL.createObjectURL(file),
+          file,
+        }));
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target && e.target.result) {
-          const result = e.target.result as string;
-          setImages((prev) => [
-            ...prev,
-            {
-              id: Math.random().toString(36).slice(2),
-              url: result,
-            },
-          ]);
-        }
-      };
-      reader.readAsDataURL(file);
-    });
-  }, []);
-
-  const handleDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      setIsDraggingOver(false);
-      handleFiles(e.dataTransfer.files);
+      onChange([...value, ...newImages]);
     },
-    [handleFiles]
+    [onChange, value]
   );
 
-  const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDraggingOver(true);
-  }, []);
-
-  const handleDragLeave = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDraggingOver(false);
-  }, []);
-
-  const moveImage = useCallback((dragIndex: number, hoverIndex: number) => {
-    setImages((prevImages) => {
-      const draggedImage = prevImages[dragIndex];
-      const newImages = [...prevImages];
-      newImages.splice(dragIndex, 1);
-      newImages.splice(hoverIndex, 0, draggedImage);
-      return newImages;
-    });
-
-    setSelectedIndex((prevIndex) => {
-      if (prevIndex === dragIndex) return hoverIndex;
-      if (prevIndex === hoverIndex) return dragIndex;
-      return prevIndex;
-    });
-  }, []);
-
-  const removeImage = useCallback((index: number) => {
-    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
-    setSelectedIndex((prevIndex) => {
-      if (prevIndex === index) return Math.max(0, index - 1);
-      if (prevIndex > index) return prevIndex - 1;
-      return prevIndex;
-    });
-  }, []);
+  // Remove image from the list
+  const removeImage = useCallback(
+    (index: number) => {
+      const newImages = value.filter((_, i) => i !== index);
+      onChange(newImages);
+      setSelectedIndex(Math.max(0, index - 1));
+    },
+    [onChange, value]
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="w-full max-w-2xl mx-auto p-4 space-y-4">
-        <h2 className="text-2xl font-semibold">Upload Img</h2>
+        <h2 className="text-2xl font-semibold">Upload Image</h2>
 
-        {/* Main preview area / Drop zone */}
+        {/* Drop Zone / Main Image Preview */}
         <div
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
+          onDrop={(e) => {
+            e.preventDefault();
+            setIsDraggingOver(false);
+            handleFiles(e.dataTransfer.files);
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setIsDraggingOver(true);
+          }}
+          onDragLeave={(e) => {
+            e.preventDefault();
+            setIsDraggingOver(false);
+          }}
           onClick={() => fileInputRef.current?.click()}
           className={cn(
             "aspect-square w-full relative h-44 bg-muted rounded-lg overflow-hidden cursor-pointer",
-            "transition-colors duration-200",
             isDraggingOver
               ? "bg-primary/10 border-2 border-dashed border-primary"
               : "border-2 border-dashed border-muted-foreground/25"
           )}
         >
-          {images.length > 0 ? (
+          {value.length > 0 ? (
             <Image
-              src={images[selectedIndex]?.url || "/placeholder.svg"}
+              src={value[selectedIndex]?.url || "/placeholder.svg"}
               alt="Selected image preview"
               fill
               className="object-contain"
@@ -188,21 +94,36 @@ export default function ImageUpload() {
           )}
         </div>
 
-        {/* Draggable thumbnails */}
+        {/* Image Thumbnails */}
         <div className="flex gap-2 overflow-x-auto pb-2">
-          {images.map((image, index) => (
-            <DraggableThumb
+          {value.map((image, index) => (
+            <div
               key={image.id}
-              image={image}
-              index={index}
-              moveImage={moveImage}
-              isSelected={index === selectedIndex}
+              className={cn(
+                "relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-opacity group",
+                index === selectedIndex ? "border-primary" : "border-muted"
+              )}
               onClick={() => setSelectedIndex(index)}
-              onRemove={() => removeImage(index)}
-            />
+            >
+              <Image
+                src={image.url}
+                alt={`Thumbnail ${index + 1}`}
+                fill
+                className="object-cover"
+              />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeImage(index);
+                }}
+                className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           ))}
 
-          {images.length < 5 && (
+          {value.length < 5 && (
             <Button
               variant="outline"
               size="icon"

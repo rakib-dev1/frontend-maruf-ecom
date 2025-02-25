@@ -56,10 +56,10 @@ const SignupPage = () => {
           body: JSON.stringify(data),
         }
       );
-
       const responseData = await res.json();
+
       if (!res.ok) {
-        throw new Error(responseData.message || "Signup failed");
+        console.log(responseData.message || "Signup failed");
       }
 
       toast.success("Signup successful! Redirecting...");
@@ -73,6 +73,7 @@ const SignupPage = () => {
       });
     } catch (error) {
       console.error(error);
+      toast.error(`${(error as Error).message}`);
     }
   };
 
