@@ -79,7 +79,7 @@ const SignupPage = () => {
 
   return (
     <React.Fragment>
-      <div className="mx-auto w-1/2 my-20">
+      <div className="mx-auto w-full lg:w-1/2 lg:my-20">
         <Card className="overflow-hidden">
           <CardContent className="p-0">
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">

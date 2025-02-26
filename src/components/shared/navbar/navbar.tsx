@@ -1,5 +1,6 @@
 "use client";
 import logo from "@/assets/logo/logo.png";
+import ProfileSection from "@/components/admin/shared/profile_section/profile_section";
 import GlobalSearchBar from "@/components/client-components/global-search-bar/global-search-bar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -13,7 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import GetCategories from "@/lib/get_categories";
 import { ChevronDown, ChevronUp, Menu, ShoppingCart } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import {useSession } from "next-auth/react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -131,13 +132,7 @@ const Navbar = () => {
           {status === "loading" ? (
             <p>Loading...</p>
           ) : session ? (
-            <Button
-              onClick={() => signOut()}
-              variant="ghost"
-              className="text-white"
-            >
-              Sign out
-            </Button>
+           <ProfileSection/>
           ) : (
             <Link href="/auth/login">
               <Button variant="outline" className="hidden md:block ">
