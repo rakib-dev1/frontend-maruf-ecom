@@ -8,6 +8,7 @@ import {
   Star,
   RotateCcw,
   LogOut,
+  ChartAreaIcon,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,11 @@ export default function ProfileSection() {
   if (status === "loading") return <div>Loading...</div>;
 
   const menuItems = [
+    {
+      icon: <ChartAreaIcon className="h-4 w-4" />,
+      label: "Dashboard",
+      href: "/dashboard",
+    },
     {
       icon: <User className="h-4 w-4" />,
       label: "Manage My Account",

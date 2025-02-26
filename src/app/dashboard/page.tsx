@@ -12,7 +12,7 @@ const Page = () => {
   if (!session) return null;
   return (
     <div className="border">
-      <h1>Home Pages</h1>
+      <h1 className="text-4xl font-bold">Welcome to Dashboard</h1>
     </div>
   );
 };
