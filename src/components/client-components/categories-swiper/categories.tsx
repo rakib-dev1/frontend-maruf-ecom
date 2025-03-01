@@ -54,7 +54,7 @@ const Categories: React.FC<{ initialCategories?: Category[] }> & {
     return () => {
       window.removeEventListener("resize", updateSlidesPerView);
     };
-  }, [initialCategories]);
+  }, [axiosPublic, initialCategories]);
 
   return (
     <div className="mt-5">
