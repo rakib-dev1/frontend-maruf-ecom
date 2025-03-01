@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import GetCategories from "@/lib/get_categories";
 import { ChevronDown, ChevronUp, Menu, ShoppingCart } from "lucide-react";
-import {useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -129,17 +129,19 @@ const Navbar = () => {
         {/* Right Side: Cart Button and Login/Signup */}
 
         <div className="flex items-center space-x-2">
-          {status === "loading" ? (
-            <p>Loading...</p>
-          ) : session ? (
-           <ProfileSection/>
-          ) : (
-            <Link href="/auth/login">
-              <Button variant="outline" className="hidden md:block ">
-                Login/Signup
-              </Button>
-            </Link>
-          )}
+          <div className="hidden md:block">
+            {status === "loading" ? (
+              <p>Loading...</p>
+            ) : session ? (
+              <ProfileSection />
+            ) : (
+              <Link href="/auth/login">
+                <Button variant="outline" className="hidden md:block ">
+                  Login/Signup
+                </Button>
+              </Link>
+            )}
+          </div>
 
           <Sheet>
             <SheetTrigger asChild>

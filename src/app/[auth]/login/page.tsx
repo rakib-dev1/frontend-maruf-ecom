@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -21,7 +21,8 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const [showPassword, setShowPassword] = React.useState(false);
-
+  const { data: session } = useSession();
+  console.log(session);
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const res = await signIn("credentials", {
@@ -29,7 +30,7 @@ const LoginPage = () => {
         email: data.email,
         password: data.password,
       });
-      console.log(res?.error);
+      console.log(res);
       if (res?.status == 401) return toast.error("Invalid credentials");
     } catch (error) {
       console.error(error);

@@ -69,7 +69,7 @@ export default function ProfileSection() {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-80" align="end">
+      <DropdownMenuContent className="w-80 mr-6" align="start">
         <div className="flex items-center gap-4 p-4">
           <Avatar className="h-12 w-12">
             <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />

@@ -1,10 +1,15 @@
 "use client";
 import ImageUpload from "@/components/admin/shared/image_uploader/image_uploader";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import GetCategories from "@/lib/get_categories";
+import axios from "axios";
+import ProgressBar from "@ramonak/react-progress-bar";
 import React from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import {
   Select,
   SelectContent,
@@ -14,10 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../components/ui/select";
-import { Button } from "@/components/ui/button";
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
-import AxiosPublic from "@/services/axios-public";
-import toast, { Toaster } from "react-hot-toast";
 interface Category {
   _id: string;
   label: string;
@@ -33,12 +34,12 @@ type Inputs = {
   discount: string;
   images: { id: string; url: string; file?: File }[];
 };
+
 const AddNewProducts = () => {
-  const axiosPublic = AxiosPublic();
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = React.useState("");
   const [selectedSubCategory, setSelectedSubCategory] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const {
     register,
     handleSubmit,
@@ -50,9 +51,6 @@ const AddNewProducts = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       setLoading(true);
-      if (loading) {
-        toast.loading("Adding product...");
-      }
 
       const categories = selectedCategory;
       const subcategories = selectedSubCategory;
@@ -72,19 +70,24 @@ const AddNewProducts = () => {
       formData.append("description", data.description);
       formData.append("categories", categories);
       formData.append("subcategories", subcategories);
-      formData.append("discount", data.discount);
-      formData.append("sizes", data.sizes.join(","));
-      formData.append("tags", data.tags);
+      formData.append("discount", data?.discount);
+      formData.append("sizes", JSON.stringify(data.sizes));
+      formData.append(
+        "tags",
+        JSON.stringify(data.tags.split(",").map((tag) => tag.trim()))
+      );
       formData.append("price", data.price);
       formData.append("stock", data.stock);
       // Send formData in the POST request
-      const result = await axiosPublic.post("/add-products", formData);
-      console.log(result);
-      setLoading(false);
-      if (result.status === 200) {
-        toast.success("Product added successfully");
-      }
+      const result = await axios.post(
+        "https://server-maruf-ecom.vercel.app/add-products",
+        formData
+      );
 
+      setLoading(false);
+      if (result.status === 201) {
+        toast.success("Product added successful");
+      }
       reset();
     } catch (error) {
       setLoading(false);
@@ -170,7 +173,7 @@ const AddNewProducts = () => {
               </div>
             </div>
             {/* end size */}
-
+            {/*  */}
             <div className="grid grid-cols-2 gap-3 mt-5 ">
               <div className="grid grid-row-2 gap-3 ">
                 <div>
@@ -243,8 +246,22 @@ const AddNewProducts = () => {
               )}
             />
 
-            {loading && <progress max="100" value="70"></progress>}
-
+            <div className="py-5 mx-2">
+              {
+                // Show progress bar when uploading images
+                loading && (
+                  <ProgressBar
+                    completed={100}
+                    bgColor="#ef6322"
+                    borderRadius="8px"
+                    labelColor="#ffffff"
+                    transitionDuration="5s"
+                    animateOnRender
+                    customLabel="uploading...🚓"
+                  />
+                )
+              }
+            </div>
             <div className="flex">
               <Button type="submit" className="">
                 Add Product
@@ -272,8 +289,9 @@ const AddNewProducts = () => {
               <Input
                 type="number"
                 className="my-1"
+                defaultValue={0}
                 placeholder="Discount"
-                {...register("discount", { required: true })}
+                {...register("discount", { required: false })}
               />
             </div>
           </div>

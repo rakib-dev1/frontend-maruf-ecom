@@ -33,7 +33,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
       setSelectedSubCategory(subFashion[3]); // Default to first sub-category
     }
   }, [subFashion]);
-  console.log(subFashion, selectedSubCategory);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-6 mt-5 border-2 border-t-[#EF6322]">
       {/* First div (1/5 width on medium screens) */}

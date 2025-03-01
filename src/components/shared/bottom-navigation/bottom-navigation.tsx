@@ -4,8 +4,13 @@ import Link from "next/link";
 import { Home, Menu, MessageSquare, ShoppingCart, User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
+import ProfileSection from "@/components/admin/shared/profile_section/profile_section";
 
 export default function BottomNav() {
+  const { data: session, status } = useSession();
+  if (status === "loading") return null;
+
   return (
     <div className="fixed z-10 bottom-0 left-0 right-0 sm:block md:hidden">
       <nav className="flex h-16 items-center justify-between border-t bg-background px-4">
@@ -59,17 +64,23 @@ export default function BottomNav() {
           </Link>
         </Button>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          className="flex flex-col items-center gap-1 h-full"
-          asChild
-        >
-          <Link href="#">
-            <User className="h-5 w-5" />
-            <span className="text-xs">Login</span>
-          </Link>
-        </Button>
+        {session ? (
+          <>
+            <ProfileSection />
+          </>
+        ) : (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="flex flex-col items-center gap-1 h-full"
+            asChild
+          >
+            <Link href="#">
+              <User className="h-5 w-5" />
+              <span className="text-xs">Login</span>
+            </Link>
+          </Button>
+        )}
       </nav>
     </div>
   );
