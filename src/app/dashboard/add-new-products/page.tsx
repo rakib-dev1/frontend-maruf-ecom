@@ -39,7 +39,7 @@ const AddNewProducts = () => {
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = React.useState("");
   const [selectedSubCategory, setSelectedSubCategory] = React.useState("");
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -257,7 +257,7 @@ const AddNewProducts = () => {
                     labelColor="#ffffff"
                     transitionDuration="5s"
                     animateOnRender
-                    customLabel="uploading...🚓"
+                    customLabel="uploading..."
                   />
                 )
               }
