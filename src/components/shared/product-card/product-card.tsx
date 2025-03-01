@@ -7,12 +7,14 @@ import React from "react";
 interface Product {
   _id: string;
   title: string;
-  image: string;
+  images: Array<string>;
   price: number;
 }
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  const { title, image, price } = product;
+  const { title, images, price } = product;
+  const firstImage = Array.isArray(images) && images[0];
+  const replaceTitle = title.replace(/-/g, " ").replace(/\s+/g, " ");
 
   return (
     <React.Fragment>
@@ -21,13 +23,15 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           <Image
             priority
             className="w-full h-[185px] object-contain repeat-0 m-auto"
-            src={image}
+            src={firstImage || "/path/to/default/image.jpg"}
             alt={title}
             width={200}
             height={100}
           />
-          <h1 className="mt-3 text-sm">
-            {title.replace(/-/g, " ").replace(/\s+/g, " ")}
+          <h1 className="mt-3 text-sm capitalize">
+            {replaceTitle.length > 20
+              ? `${replaceTitle.slice(0, 25)}...`
+              : replaceTitle}
           </h1>
           <p>Rating: 43</p>
 

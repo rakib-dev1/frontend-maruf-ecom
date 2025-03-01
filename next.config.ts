@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         hostname: "i.postimg.cc",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+        pathname: "**",
+      },
 
       {
         protocol: "https",

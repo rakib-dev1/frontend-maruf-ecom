@@ -1,34 +1,43 @@
 "use client";
+
 import AxiosPublic from "@/services/axios-public";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./styles.css";
+
 interface Category {
   _id: number;
   icon: string;
   label: string;
   href: string;
 }
-const Categories = () => {
+
+const Categories: React.FC<{ initialCategories?: Category[] }> & {
+  preload?: () => Promise<Category[]>;
+} = ({ initialCategories = [] }) => {
   const axiosPublic = AxiosPublic();
-  const [categories, setCategories] = React.useState<Category[]>([]);
-  const [slidesPerView, setSlidesPerView] = React.useState(5);
-  React.useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axiosPublic.get("/categories");
-        setCategories(response?.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchCategories();
+  const [categories, setCategories] = useState<Category[]>(initialCategories);
+  const [slidesPerView, setSlidesPerView] = useState(5);
+
+  useEffect(() => {
+    if (initialCategories.length === 0) {
+      const fetchCategories = async () => {
+        try {
+          const response = await axiosPublic.get("/categories");
+          setCategories(response?.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchCategories();
+    }
+
     const updateSlidesPerView = () => {
       if (window.innerWidth < 640) {
         setSlidesPerView(3);
@@ -45,7 +54,7 @@ const Categories = () => {
     return () => {
       window.removeEventListener("resize", updateSlidesPerView);
     };
-  }, [axiosPublic]);
+  }, [initialCategories]);
 
   return (
     <div className="mt-5">
@@ -57,7 +66,7 @@ const Categories = () => {
       >
         {categories?.map((category) => (
           <SwiperSlide className="px-10" key={category?._id}>
-            <Link href="" className="hover:font-semibold">
+            <Link href={category?.href || "#"} className="hover:font-semibold">
               <div className="border rounded-full w-20 p-2 overflow-hidden">
                 {category?.icon && (
                   <Image
@@ -69,13 +78,20 @@ const Categories = () => {
                 )}
               </div>
 
-              <p className="text-nowrap ">{category?.label?.slice(0, 8)}</p>
+              <p className="text-nowrap">{category?.label?.slice(0, 8)}</p>
             </Link>
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
   );
+};
+
+// ✅ Preload function for server-side fetching
+Categories.preload = async () => {
+  const axiosPublic = AxiosPublic();
+  const response = await axiosPublic.get("/categories");
+  return response?.data;
 };
 
 export default Categories;
