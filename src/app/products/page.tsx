@@ -8,6 +8,7 @@ interface Products {
   title: string;
   price: number;
   image: string;
+  images: Array<string>;
 }
 
 const Products = () => {

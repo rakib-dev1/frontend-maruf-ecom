@@ -10,7 +10,7 @@ interface Products {
   name: string;
   title: string;
   price: number;
-  image: string;
+  images: Array<string>;
 }
 
 const DynamicProductsPage = () => {
