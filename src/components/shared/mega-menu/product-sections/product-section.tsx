@@ -28,7 +28,7 @@ const ProductSection: React.FC<{ subCategory: SubCategory }> = ({
   const [products, setProducts] = React.useState<Product[]>([]);
   React.useEffect(() => {
     const fetchSubCategoryProducts = async () => {
-      const data = await GetProducts(subCategory.label);
+      const data = await GetProducts();
       setProducts(data);
     };
     fetchSubCategoryProducts();
