@@ -18,29 +18,33 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
   return (
     <React.Fragment>
-      <Link href={`/products/${product._id}`}>
-        <div className="p-3 mt-2 mb-2 mx-auto relative h-[278px] w-[185px]   border border-transparent hover:border-blue-600  transition-transform duration-300 ease">
-          <Image
-            priority
-            className="w-full h-[185px] object-contain repeat-0 m-auto"
-            src={firstImage || "/path/to/default/image.jpg"}
-            alt={title}
-            width={200}
-            height={100}
-          />
-          <h1 className="mt-3 text-sm capitalize">
-            {replaceTitle.length > 20
-              ? `${replaceTitle.slice(0, 25)}...`
-              : replaceTitle}
-          </h1>
-          <p>Rating: 43</p>
+      <div className="mt-4">
+        <Link href={`/products/${product.title}`}>
+          <div className="mx-auto relative h-[278px] w-[185px]  border border-transparent hover:border-blue-600  transition-transform duration-300 ease">
+            <Image
+              priority
+              className="w-full h-[185px] object-contain repeat-0 m-auto"
+              src={firstImage || "/path/to/default/image.jpg"}
+              alt={title}
+              width={200}
+              height={100}
+            />
+            <div className="p-1">
+              <h1 className="text-sm capitalize">
+                {replaceTitle.length > 20
+                  ? `${replaceTitle.slice(0, 20)}...`
+                  : replaceTitle}
+              </h1>
+              <p className="text-sm">Rating: 43</p>
 
-          <p>${price}</p>
-          <Button className="absolute bottom-1 right-3" size="sm">
-            Buy Now
-          </Button>
-        </div>
-      </Link>
+              <p>${price}</p>
+              <Button className="absolute bottom-1 right-3" size="sm">
+                Buy Now
+              </Button>
+            </div>
+          </div>
+        </Link>
+      </div>
     </React.Fragment>
   );
 };

@@ -3,15 +3,14 @@ import ProductCard from "@/components/shared/product-card/product-card";
 import GetProducts from "@/lib/get_products";
 import React from "react";
 
-interface Products {
+type Products = {
   _id: string;
   title: string;
   price: number;
   image: string;
   images: Array<string>;
-}
-
-const Products = () => {
+};
+const AllProductsPages = () => {
   const [products, setProducts] = React.useState<Products[]>([]);
 
   React.useEffect(() => {
@@ -34,4 +33,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default AllProductsPages;
