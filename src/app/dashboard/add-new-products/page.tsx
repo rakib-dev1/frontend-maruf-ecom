@@ -80,7 +80,7 @@ const AddNewProducts = () => {
       formData.append("stock", data.stock);
       // Send formData in the POST request
       const result = await axios.post(
-        "http://localhost:5000/add-products",
+        "https://server-maruf-ecom.vercel.app/add-products",
         formData
       );
 
