@@ -48,14 +48,11 @@ const SignupPage = () => {
   const strength = getStrength(password);
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const res = await fetch(
-        "https://server-maruf-ecom.vercel.app/auth/signup",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
+      const res = await fetch("http://localhost:5000/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
       const responseData = await res.json();
 
       if (!res.ok) {

@@ -1,7 +1,7 @@
 import Categories from "@/components/client-components/categories-swiper/categories";
-import FeaturedProducts from "@/components/client-components/featured-products/featured-products";
 import HeaderSwiper from "@/components/client-components/HeaderSwiper/swiper";
-import HighLightSection from "@/components/client-components/mega-menu/mens-fashion";
+import LatestProductsSection from "@/sections/featured_products/featured_products";
+import MegaFashions from "@/sections/mega_fashion_sections/mega_fashion";
 import React from "react";
 const Home = () => {
   return (
@@ -9,15 +9,21 @@ const Home = () => {
       <HeaderSwiper />
       <div className="container mx-auto">
         <Categories />
-        <FeaturedProducts />
-        <HighLightSection category="Mens Shopping" highlight="Mens Fashion" />
-        <HighLightSection
-          category="Womens Fashion"
-          highlight="Womens Fashion"
+        <LatestProductsSection />
+        <MegaFashions
+          fashion="Mens Shopping"
+          fashionCategories="Mens Shopping"
+          highLight="Mens Fashion"
         />
-        <HighLightSection
-          category="Fashion Categories"
-          highlight="Womens Fashion"
+        <MegaFashions
+          fashion="Mens Shopping"
+          fashionCategories="Mens Shopping"
+          highLight="Mens Fashion"
+        />
+        <MegaFashions
+          fashion="Mens Shopping"
+          fashionCategories="Mens Shopping"
+          highLight="Mens Fashion"
         />
       </div>
     </React.Fragment>
